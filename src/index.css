@@ -114,3 +114,21 @@ Header{
     margin: auto 10px;
   }
 }
+
+@media (max-width:600px){
+  .inputs{
+    flex-direction: column;
+    input{
+    width: 80%;
+    }
+  }
+  .buttons{
+    justify-content: center;
+    .edit{
+        width: fit-content;
+    }
+    .delete{
+      width: fit-content;
+    }
+  }
+}
