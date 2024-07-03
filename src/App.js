@@ -4,37 +4,32 @@ import List from "./Coponenets/List";
 import { useState } from "react";
 
 function App() {
+  
   let Data = localStorage.getItem("todo");
   Data = JSON.parse(Data);
   let [change, setChange ]= useState(false)
-  let [count, setCount] = useState(0);
   const [task, setTask] = useState(Data || []);
-  let [name, setName] = useState("");
-  let [description, setDescription] = useState("");
+  let [inputName, setInputName] = useState("");
+  let [inputDescrip, setInputDescrip] = useState("");
 
   function inputDatas(name, description) {
     if (name.length === 0) {
     } else if (description.length === 0) {
     } else {
-      let todoList = [...task];
-      if (task.length > 0) {
-        count = task.length + 1;
-        setCount(count);
-      } else {
-        count = 1;
-        setCount(count);
-      }
-
+      let todoList = [...task]
+   
       todoList.push({
-        id: count,
+        id: task.length?task[task.length-1].id+1:1,
         name: name,
         description: description,
-        status: "Not-Completed"
-      })
+        status: "Not-Completed",
+      });
 
       setTask(todoList);
 
       localStorage.setItem("todo", JSON.stringify(todoList));
+      setInputName('')
+      setInputDescrip('')
     }
   }
 
@@ -46,14 +41,13 @@ function App() {
     setTask(todolist);
     localStorage.setItem("todo", JSON.stringify(todolist));
   }
-
-  function handleEdit(id, name, description) {
-    setName(name);
-    setDescription(description)
+  function handleEdit(id, names, descriptions) {
+    setInputName(names)
+    setInputDescrip(descriptions)
     setChange(true)
   }
  
-  function parentFilter(e, labels) {
+  function parentFilter(e) {
     let listItems = [...task]
     listItems = listItems.filter((val) => {
       return val.status == e
@@ -63,7 +57,20 @@ function App() {
       window.location.reload()
     }
   }
-  function childFilter(e, labels) {
+  function handleUpdate(id,names, descriptions) {
+    setChange(false);
+    let listItems = [...task]
+    listItems = listItems.filter((val) => val.id !== id.id)
+    listItems.push({
+      id: task.length ? task[task.length - 1].id + 1 : 1,
+      name: names,
+      description: descriptions,
+      status: "Not-Completed",
+    })
+    setTask(listItems)
+    localStorage.setItem("todo", JSON.stringify(listItems))
+    setInputName('')
+    setInputDescrip('')
     
   }
 
@@ -72,14 +79,15 @@ function App() {
       <h1>My todo</h1>
       <Inputbox
         inputDatas={inputDatas}
-        name={name}
-        description={description} 
-        change = {change}
+        change={change}
+        handleUpdate={handleUpdate}
+        inputName={inputName}
+        setInputName={setInputName}
+        inputDescrip={inputDescrip}
+        setInputDescrip={setInputDescrip}
+        task = {task}
       />
-
-      <Content
-          parentFilter = {parentFilter}
-      />
+      <Content parentFilter={parentFilter} />
 
       <div className="todos">
         {task.map((val, index) => {
@@ -91,7 +99,6 @@ function App() {
               id={val.id}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
-              childFilter={childFilter}
               setTask={setTask}
               tasks={task}
             />

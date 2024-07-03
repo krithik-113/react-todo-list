@@ -6,7 +6,6 @@ const List = ({
   id,
   handleDelete,
   handleEdit,
-  childFilter,
   setTask,
   tasks}) => {
   const options = [
@@ -22,11 +21,9 @@ const List = ({
         <label htmlFor="option">Status</label>
         <select 
           onChange={(e) => {
-            childFilter(e.target.value, options)
             tasks = tasks.map((val) => {
                return val.id === id ? {...val, status: e.target.value }: val})
             setTask(tasks)
-            console.log(tasks.status)
             localStorage.setItem("todo", JSON.stringify(tasks));
           }}
         >
@@ -47,7 +44,6 @@ const List = ({
           Edit
         </button>
         <button className="delete" onClick={() => handleDelete(id)}>
-          {" "}
           Delete
         </button>
       </div>

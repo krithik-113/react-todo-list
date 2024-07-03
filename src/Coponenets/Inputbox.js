@@ -1,39 +1,47 @@
 import React from "react";
-import { useState } from "react";
 
 const Inputbox = ({
   inputDatas,
-  name,
-  description,
-  editing,
-  change
+  change,
+  handleUpdate,
+  inputName,
+  setInputName,
+  inputDescrip,
+  setInputDescrip,
+  task
 }) => {
-  let [inputName, setInputName] = useState("");
-  let [inputDescrip, setInputDescrip] = useState('')
 
   return (
-    <form className="inputs" >
+    <form className="inputs" onSubmit={(e)=>e.preventDefault()}>
       <input
         type="text"
         placeholder="Todo Name"
-        value={name.length === 0 ? inputName : name}
-        onChange={(e) => {
-          setInputName(e.target.value)
-        }
-        }
+        value={inputName}
+        onChange={(e) => setInputName(e.target.value)}
         required
       />
       <input
         type="text"
         placeholder="Todo Description"
-        value={description.length === 0 ? inputDescrip : description}
-        onChange={(e) => {setInputDescrip(e.target.value)}}
+        value={inputDescrip}
+        onChange={(e) => {
+          setInputDescrip(e.target.value);
+        }}
         required
       />
-      <button type="submit" onClick={() => inputDatas(inputName, inputDescrip)}
-      >
-        {change === true ? "Update" : "Add Tasks"}
-      </button>
+      {change ? (
+        <button
+          onClick={() => handleUpdate(task.find(val=>val.name === inputName ? val.id:val),inputName, inputDescrip)}
+        >
+         Update
+        </button>
+      ) : (
+        <button
+          onClick={() => inputDatas(inputName, inputDescrip)}
+        >
+          Add Tasks
+        </button>
+      )}
     </form>
   );
 };
