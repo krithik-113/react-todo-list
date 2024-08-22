@@ -14,7 +14,7 @@ export const InputsContext = ({ children }) => {
     
     async function get_Todos() {
        await  axios
-           .get("http://localhost:3005/todos/get")
+           .get("https://todos-backend-jchp.onrender.com/todos/get")
            .then((res) => setTask(res.data.todos))
            .catch((err) => console.log(err.message));
     }
@@ -24,7 +24,7 @@ export const InputsContext = ({ children }) => {
       } else if (description.length === 0) {
       } else {
           await axios
-            .post("http://localhost:3005/todos/create", {
+            .post("https://todos-backend-jchp.onrender.com/todos/create", {
               name: inputName,
               description: inputDescrip,
             })
@@ -40,7 +40,7 @@ export const InputsContext = ({ children }) => {
     const handleUpdate = async (names, descriptions) => {
         setChange(false);
         await axios
-          .put(`http://localhost:3005/todos/edit/${ID}`, {
+          .put(`https://todos-backend-jchp.onrender.com/todos/edit/${ID}`, {
             name: names,
             description: descriptions,
           })
@@ -61,7 +61,7 @@ export const InputsContext = ({ children }) => {
 
     //  parent filter
     const parentFilter = async (e) => {
-        await axios.get(` http://localhost:3005/todos/status/${e}`)
+        await axios.get(` https://todos-backend-jchp.onrender.com/todos/status/${e}`)
             .then(res => {
                 if (res.data.todo.length) {
                     setTask(res.data.todo);
@@ -75,7 +75,7 @@ export const InputsContext = ({ children }) => {
     }
     //  filter process initiated
     const handleInnerFilter = async (id,status) => {
-        await axios.put(`http://localhost:3005/todos/status/${id}`, {
+        await axios.put(`https://todos-backend-jchp.onrender.com/todos/status/${id}`, {
           status
         }).then(res => {
             alert(res.data.message)
@@ -87,7 +87,7 @@ export const InputsContext = ({ children }) => {
 
     //  delete todos
      const handleDelete = async (id) => {
-      await axios.delete(`http://localhost:3005/todos/delete/${id}`)
+      await axios.delete(`https://todos-backend-jchp.onrender.com/todos/delete/${id}`)
           .then(res => {
               alert(res.data.message)
               get_Todos()
