@@ -1,26 +1,21 @@
 import React from 'react'
+import { useContext } from 'react';
+import TodoDataContext from './Context API/InputsContext';
 
-const Content = ({ parentFilter }) => {
-  const options = [
-    { label: "All", value: 1 },
-    { label: "Not-Completed", value: 2 },
-    { label: "Completed", value: 3 },
-  ];
+const Content = () => {
+ 
+  const {parentFilter} = useContext(TodoDataContext)
   return (
     <header>
       <h2>My Todos</h2>
-      <main>
+      <form>
         <label htmlFor="option">Status filter</label>
-        <select onChange={(e)=>parentFilter(e.target.value, options)}>
-          {options.map((val) => {
-            return <option
-              key={val.value}
-              value={val.label}
-            >
-              {val.label}</option>;
-          })}
+        <select onChange={(e) => parentFilter(e.target.value)}>
+          <option value="All">All</option>
+          <option value="Not-Completed">Not-Completed</option>
+          <option value="Completed">Completed</option>
         </select>
-      </main>
+      </form>
     </header>
   );
 };

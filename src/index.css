@@ -55,7 +55,7 @@ Header{
   }
 }
 .todos{
-  width: 70%;
+  width: 95%;
   padding: 100px;
   display: flex;
   flex-direction: row;

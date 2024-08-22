@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import TodoDataContext from "./Context API/InputsContext";
 
-const Inputbox = ({
-  inputDatas,
-  change,
-  handleUpdate,
-  inputName,
-  setInputName,
-  inputDescrip,
-  setInputDescrip,
-  task
-}) => {
+const Inputbox = () => {
+
+  const {
+    inputDatas,
+    inputName,
+    setInputName,
+    inputDescrip,
+    setInputDescrip,
+    handleUpdate,
+    change
+  } = useContext(TodoDataContext);
 
   return (
     <form className="inputs" onSubmit={(e)=>e.preventDefault()}>
@@ -31,7 +33,7 @@ const Inputbox = ({
       />
       {change ? (
         <button
-          onClick={() => handleUpdate(task.find(val=>val.name === inputName ? val.id:val),inputName, inputDescrip)}
+          onClick={() => handleUpdate(inputName, inputDescrip)}
         >
          Update
         </button>
