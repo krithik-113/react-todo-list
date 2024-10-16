@@ -3,14 +3,19 @@ import Content from "./Coponenets/Content";
 import Inputbox from "./Coponenets/Inputbox";
 import List from "./Coponenets/List";
 import TodoDataContext from "./Coponenets/Context API/InputsContext";
+import axios from "axios";
 
 function App() {
 
-  const { task, get_Todos } = useContext(TodoDataContext);
+  const { task,setTask } = useContext(TodoDataContext);
 
   useEffect(() => {
-    get_Todos();
-  },[])
+       axios.get("https://todos-backend-jchp.onrender.com/todos/get")
+        .then((res) => setTask(res.data.todos))
+        .catch((err) => console.log(err.message));
+  }, [])
+  
+  
 
   return (
     <div className="App">

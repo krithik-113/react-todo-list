@@ -12,12 +12,7 @@ export const InputsContext = ({ children }) => {
     let [inputName, setInputName] = useState("");
     let [inputDescrip, setInputDescrip] = useState("");
     
-    async function get_Todos() {
-       await  axios
-           .get("https://todos-backend-jchp.onrender.com/todos/get")
-           .then((res) => setTask(res.data.todos))
-           .catch((err) => console.log(err.message));
-    }
+    
 
     const inputDatas = async (name, description) => {
       if (name.length === 0) {
@@ -28,12 +23,11 @@ export const InputsContext = ({ children }) => {
               name: inputName,
               description: inputDescrip,
             })
-            .then((res) => console.log(res.data))
+            .then((res) =>{})
             .catch((err) => console.log(err.message));
         
         setInputName("");
-          setInputDescrip("");
-          get_Todos()
+          setInputDescrip("")
       }
     }
 
@@ -48,15 +42,14 @@ export const InputsContext = ({ children }) => {
           .catch((err) => console.log(err.message));
       setInputName("");
         setInputDescrip("");
-        get_Todos()
     }
 
     //  Todo edition
     const handleEdit = async (id, name, description) => {
         setID(id);
-      setInputName(name);
-      setInputDescrip(description);
-      setChange(true);
+        setInputName(name);
+        setInputDescrip(description);
+        setChange(true);
     }
 
     //  parent filter
@@ -79,7 +72,7 @@ export const InputsContext = ({ children }) => {
           status
         }).then(res => {
             alert(res.data.message)
-            get_Todos()
+            // get_Todos()
             window.location.reload()
         })
         .catch(err=>console.log(err.message))
@@ -88,10 +81,7 @@ export const InputsContext = ({ children }) => {
     //  delete todos
      const handleDelete = async (id) => {
       await axios.delete(`https://todos-backend-jchp.onrender.com/todos/delete/${id}`)
-          .then(res => {
-              alert(res.data.message)
-              get_Todos()
-          })
+          .then(res =>  setTask(res.data.todos))
          .catch(err=>console.log(err.message))
     }
   return (
@@ -106,7 +96,6 @@ export const InputsContext = ({ children }) => {
         change,
         task,
         setTask,
-        get_Todos,
         handleDelete,
         handleEdit,
         handleInnerFilter,
