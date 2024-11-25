@@ -6,7 +6,7 @@ import { InputsContext } from './Coponenets/Context API/InputsContext';
 import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.baseURL = "http://localhost:3005"
+axios.defaults.baseURL = "https://todos-backend-jchp.onrender.com";
 root.render(
   <React.StrictMode>
     <InputsContext>
