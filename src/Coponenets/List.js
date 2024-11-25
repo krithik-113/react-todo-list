@@ -5,8 +5,10 @@ const List = ({name,description,status,id}) => {
  
   const { handleDelete, handleEdit, handleInnerFilter } = useContext(TodoDataContext);
 
+  
+
   return (
-    <form className="box">
+    <div className="box">
       <p>Name: {name}</p>
       <p>Description: {description} </p>
       <p>
@@ -29,7 +31,7 @@ const List = ({name,description,status,id}) => {
           Delete
         </button>
       </div>
-    </form>
+    </div>
   );
 };
 
