@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useContext } from 'react';
-import TodoDataContext from './Context API/InputsContext';
+import React from 'react'
 
-const Content = ({ getAllTodos }) => {
-  const [status, setStatus] = useState("All");
-
-  useEffect(() => {
-    getAllTodos(status);
-  },[status]);
+const Content = ({ setStatus }) => {
   return (
     <header>
       <h2>My Todos</h2>

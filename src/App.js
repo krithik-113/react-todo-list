@@ -10,6 +10,7 @@ function App() {
   const { task } = useContext(TodoDataContext);
 
   const [todos, setTodos] = useState([])
+  const [status, setStatus] = useState("All");
 
   const getAllTodos = async (status = "All") => {
     try {
@@ -25,14 +26,14 @@ function App() {
   };
  
   useEffect(() => {
-        getAllTodos()
-      },[task])
+        getAllTodos(status)
+      },[task,status])
 
   return (
     <div className="App">
       <h1>My todo</h1>
       <Inputbox />
-      <Content getAllTodos={getAllTodos} />
+      <Content setStatus={setStatus} />
 
       <div className="todos">
         {todos.map((val, index) => {
@@ -44,7 +45,7 @@ function App() {
               id={val._id}
               status={val.status}
             />
-          )
+          );
         })}
       </div>
     </div>
